@@ -41,6 +41,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("Bla");
         try{
            Class.forName(JDBC_DRIVER);
            connection = DriverManager.getConnection(URL_DB,Username,Password);
