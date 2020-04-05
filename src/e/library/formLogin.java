@@ -25,6 +25,7 @@ public class formLogin extends javax.swing.JFrame {
     Connection connection;
     Statement statement;
     ResultSet resultSet;
+    private userModel usermodel;
 
     /**
      * Creates new form formLogin
@@ -183,7 +184,9 @@ public class formLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Selamat Anda Berhasil Login Sebagai Admin");
         }
         else if (authenticationUser(username,password,arrayUser) == true){
+            formHome formhome = new formHome();
             JOptionPane.showMessageDialog(rootPane, "Selamat Anda Berhasil Login Sebagai User");
+            new formHome(usermodel.getUsername()).setVisible(true);
         }
         else {
             JOptionPane.showMessageDialog(rootPane, "Username atau Password Anda Salah");
@@ -216,6 +219,8 @@ public class formLogin extends javax.swing.JFrame {
             String passwordUser = arraytUser.get(i).getPassword();
             if(username.equals(usernameUser) && password.equals(passwordUser)){
                 login = true;
+                usermodel = new userModel();
+                usermodel.setUsername(usernameUser);
                 break;
             }
         }
