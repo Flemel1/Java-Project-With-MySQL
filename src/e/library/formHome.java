@@ -21,9 +21,9 @@ public class formHome extends javax.swing.JFrame {
         initComponents();
     }
     
-    public formHome(String namaAkun){
+    public formHome(String firstname, String lastname){
         initComponents();
-        txtName.setText(namaAkun);
+        txtName.setText(firstname + " " + lastname);
     }
 
     /**

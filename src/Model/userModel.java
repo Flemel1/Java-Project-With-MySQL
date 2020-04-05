@@ -11,6 +11,8 @@ package Model;
  */
 public class userModel {
     private int id;
+    private String firstName;
+    private String lastName;
     private String username;
     private String password;
 
@@ -27,7 +29,7 @@ public class userModel {
     public void setId(int id) {
         this.id = id;
     }
-
+    
     /**
      * @return the username
      */
@@ -54,6 +56,34 @@ public class userModel {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     
     
