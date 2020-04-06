@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  * @author Lelu
  */
 public class formHome extends javax.swing.JFrame {
-//    private userModel usermodel;
+    private userModel usermodel;
     /**
      * Creates new form formHome
      */
@@ -21,9 +21,11 @@ public class formHome extends javax.swing.JFrame {
         initComponents();
     }
     
-    public formHome(String firstname, String lastname){
+    public formHome(userModel usermodel){
         initComponents();
-        txtName.setText(firstname + " " + lastname);
+        this.usermodel = usermodel;
+        txtName.setText(usermodel.getFirstName() + " " + usermodel.getLastName());
+        txtAlamat.setText(usermodel.getAlamatUser());
     }
 
     /**
@@ -37,16 +39,30 @@ public class formHome extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         txtName = new javax.swing.JLabel();
+        txtAlamat = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 768));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
-        jLabel2.setText("Akun Anda");
+        jLabel2.setText("Selamat Datang");
 
         txtName.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         txtName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtName.setText("Nama user");
+
+        txtAlamat.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        txtAlamat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtAlamat.setText("Alamat");
+
+        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton1.setText("Setting");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,9 +74,12 @@ public class formHome extends javax.swing.JFrame {
                         .addGap(581, 581, 581)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(530, 530, 530)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(228, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,11 +88,20 @@ public class formHome extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName)
-                .addContainerGap(784, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAlamat)
+                .addGap(49, 49, 49)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(651, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new formSetting(usermodel).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,7 +139,9 @@ public class formHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel txtAlamat;
     private javax.swing.JLabel txtName;
     // End of variables declaration//GEN-END:variables
 }
