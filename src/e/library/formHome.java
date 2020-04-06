@@ -40,12 +40,12 @@ public class formHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 768));
-        setPreferredSize(new java.awt.Dimension(1080, 920));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         jLabel2.setText("Akun Anda");
 
         txtName.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        txtName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtName.setText("Nama user");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -58,9 +58,9 @@ public class formHome extends javax.swing.JFrame {
                         .addGap(581, 581, 581)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(644, 644, 644)
-                        .addComponent(txtName)))
-                .addContainerGap(276, Short.MAX_VALUE))
+                        .addGap(530, 530, 530)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
