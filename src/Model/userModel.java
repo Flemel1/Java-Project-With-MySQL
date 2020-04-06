@@ -15,7 +15,7 @@ public class userModel {
     private String lastName;
     private String username;
     private String password;
-    private String alamat;
+    private String alamatUser;
 
     /**
      * @return the id
@@ -86,20 +86,18 @@ public class userModel {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+    
     /**
-     * @return the alamat
+     * @return the alamatUser
      */
-    public String getAlamat() {
-        return alamat;
+    public String getAlamatUser() {
+        return alamatUser;
     }
 
     /**
-     * @param alamat the alamat to set
+     * @param alamatUser the alamatUser to set
      */
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setAlamatUser(String alamatUser) {
+        this.alamatUser = alamatUser;
     }
-    
-    
 }
