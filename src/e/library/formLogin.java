@@ -178,7 +178,6 @@ public class formLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
-        Scanner scan = new Scanner(System.in);
         ArrayList<adminModel> arrayAdmin = new ArrayList<>();
         ArrayList<userModel> arrayUser = new ArrayList<>();
         String username = tfUsername.getText();
@@ -253,13 +252,16 @@ public class formLogin extends javax.swing.JFrame {
             String passwordUser = arraytUser.get(i).getPassword();
             if(username.equals(usernameUser) && password.equals(passwordUser)){
                 login = true;
+                int id = arraytUser.get(i).getId();
                 String firstname = arraytUser.get(i).getFirstName();
                 String lastname = arraytUser.get(i).getLastName();
                 String alamat = arraytUser.get(i).getAlamatUser();
                 usermodel = new userModel();
+                usermodel.setId(id);
                 usermodel.setFirstName(firstname);
                 usermodel.setLastName(lastname);
                 usermodel.setAlamatUser(alamat);
+                usermodel.setPassword(passwordUser);
                 break;
             }
         }
