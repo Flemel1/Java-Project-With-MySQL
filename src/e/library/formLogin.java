@@ -203,6 +203,7 @@ public class formLogin extends javax.swing.JFrame {
                 usermodel.setPassword(resultSet.getString(3));
                 usermodel.setFirstName(resultSet.getString(4));
                 usermodel.setLastName(resultSet.getString(5));
+                usermodel.setAlamatUser(resultSet.getString(6));
                 arrayUser.add(usermodel);
             }
         }
@@ -213,9 +214,9 @@ public class formLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Selamat Anda Berhasil Login Sebagai Admin");
         }
         else if (authenticationUser(username,password,arrayUser) == true){
-            formHome formhome = new formHome();
             JOptionPane.showMessageDialog(rootPane, "Selamat Anda Berhasil Login Sebagai User");
-            new formHome(usermodel.getFirstName(),usermodel.getLastName()).setVisible(true);
+            this.setVisible(false);
+            new formHome(usermodel).setVisible(true);
         }
         else {
             JOptionPane.showMessageDialog(rootPane, "Username atau Password Anda Salah");
@@ -254,9 +255,11 @@ public class formLogin extends javax.swing.JFrame {
                 login = true;
                 String firstname = arraytUser.get(i).getFirstName();
                 String lastname = arraytUser.get(i).getLastName();
+                String alamat = arraytUser.get(i).getAlamatUser();
                 usermodel = new userModel();
                 usermodel.setFirstName(firstname);
                 usermodel.setLastName(lastname);
+                usermodel.setAlamatUser(alamat);
                 break;
             }
         }
