@@ -5,7 +5,12 @@
  */
 package e.library;
 
+import Model.userModel;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,14 +18,16 @@ import javax.swing.JOptionPane;
  * @author Lelu
  */
 public class formDaftar extends javax.swing.JFrame {
-
+    ResultSet resultSet;
+    Statement statement;
+    Connection connection;
     /**
      * Creates new form formDaftar
      */
     public formDaftar() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,13 +175,35 @@ public class formDaftar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
-        try{
+        if (tfFirstname.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Firstname tidak boleh kosong");
+        }
+        else if(tfLastname.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Lastname tidak boleh kosong");
+        }
+        else if(tfUsername.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Username tidak boleh kosong");
+        }
+        else if(tfPassword.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Password tidak boleh kosong");
+        }
+        else if(tfAlamat.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Alamat tidak boleh kosong");
+        }
+        else if(tfPassword.getText().trim().length() < 8){
+            JOptionPane.showMessageDialog(rootPane, "Password harus memiliki minimal 8 karakter");
+        }
+        else if(authenticationUsername(tfUsername.getText().trim()) == false){
+            JOptionPane.showMessageDialog(rootPane, "Username telah digunakan");
+        }
+        else {
+            try{
             formLogin formlogin = new formLogin();
-            String sql = "INSERT INTO user(username,password,firstname,lastname,alamat) VALUES('"+tfUsername.getText()
-            +"','"+tfPassword.getText()
-            +"','"+tfFirstname.getText()
-            +"','"+tfLastname.getText()
-            +"','"+tfAlamat.getText()+"')";
+            String sql = "INSERT INTO user(username,password,firstname,lastname,alamat) VALUES('"+tfUsername.getText().trim()
+            +"','"+tfPassword.getText().trim()
+            +"','"+tfFirstname.getText().trim()
+            +"','"+tfLastname.getText().trim()
+            +"','"+tfAlamat.getText().trim()+"')";
             java.sql.Connection conn = (Connection)Koneksi.koneksiDB.configDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             pst.execute();
@@ -182,11 +211,43 @@ public class formDaftar extends javax.swing.JFrame {
             this.setVisible(false);
             formlogin.setVisible(true);
         }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            catch (Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
         }
     }//GEN-LAST:event_btnDaftarActionPerformed
 
+    private boolean authenticationUsername(String username){
+        boolean valid = true;
+        ArrayList<userModel> arrayUser = new ArrayList<>();
+        String sqlUser = "select * from user";
+        try {
+            connection = (Connection)Koneksi.koneksiDB.configDB();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlUser);
+            while(resultSet.next()){
+                userModel usermodel = new userModel();
+                usermodel.setId(resultSet.getInt(1));
+                usermodel.setUsername(resultSet.getString(2));
+                usermodel.setPassword(resultSet.getString(3));
+                usermodel.setFirstName(resultSet.getString(4));
+                usermodel.setLastName(resultSet.getString(5));
+                usermodel.setAlamatUser(resultSet.getString(6));
+                arrayUser.add(usermodel);
+            }
+                for (int i = 0; i < arrayUser.size(); i++) {
+                String usernameValidation = arrayUser.get(i).getUsername();
+                if(username.equals(usernameValidation)){
+                    valid = false;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return valid;
+    }
     /**
      * @param args the command line arguments
      */
