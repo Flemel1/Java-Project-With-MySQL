@@ -26,7 +26,9 @@ public class formLogin extends javax.swing.JFrame {
     Statement statement;
     ResultSet resultSet;
     private userModel usermodel;
-
+    private adminModel adminmodel;
+    private ArrayList<userModel> arrayUser;
+    private ArrayList<adminModel> arrayAdmin;
     /**
      * Creates new form formLogin
      */
@@ -39,7 +41,7 @@ public class formLogin extends javax.swing.JFrame {
         catch (SQLException ex){
             ex.printStackTrace();
         }
-        
+        fetchAccount();
     }
 
     /**
@@ -177,38 +179,8 @@ public class formLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
-        ArrayList<adminModel> arrayAdmin = new ArrayList<>();
-        ArrayList<userModel> arrayUser = new ArrayList<>();
         String username = tfUsername.getText();
         String password = tfPassword.getText();
-        String sqlAdmin = "select * from admin";
-        String sqlUser = "select * from user";
-        try {
-            
-            resultSet = statement.executeQuery(sqlAdmin);
-            while(resultSet.next()){
-                adminModel adminmodel = new adminModel();
-                adminmodel.setId(resultSet.getInt(1));
-                adminmodel.setUsername(resultSet.getString(2));
-                adminmodel.setPassword(resultSet.getString(3));
-                arrayAdmin.add(adminmodel);
-            }
-            resultSet = statement.executeQuery(sqlUser);
-            while(resultSet.next()){
-                userModel usermodel = new userModel();
-                usermodel.setId(resultSet.getInt(1));
-                usermodel.setUsername(resultSet.getString(2));
-                usermodel.setPassword(resultSet.getString(3));
-                usermodel.setFirstName(resultSet.getString(4));
-                usermodel.setLastName(resultSet.getString(5));
-                usermodel.setAlamatUser(resultSet.getString(6));
-                arrayUser.add(usermodel);
-            }
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
         if(authenticationAdmin(username,password,arrayAdmin) == true){
             JOptionPane.showMessageDialog(rootPane, "Selamat Anda Berhasil Login Sebagai Admin");
         }
@@ -223,14 +195,44 @@ public class formLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
-        formDaftar formdaftar = new formDaftar();
         this.setVisible(false);
-        formdaftar.setVisible(true);
+        new formDaftar(arrayUser).setVisible(true);
     }//GEN-LAST:event_btnDaftarActionPerformed
 
     private void tfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfUsernameActionPerformed
+    
+    private void fetchAccount(){
+        arrayUser = new ArrayList<>();
+        arrayAdmin = new ArrayList<>();
+        String sqlAdmin = "select * from admin";
+        String sqlUser = "select * from user";
+        try {
+            resultSet = statement.executeQuery(sqlAdmin);
+            while(resultSet.next()){
+                adminmodel = new adminModel();
+                adminmodel.setId(resultSet.getInt(1));
+                adminmodel.setUsername(resultSet.getString(2));
+                adminmodel.setPassword(resultSet.getString(3));
+                arrayAdmin.add(adminmodel);
+            }
+            resultSet = statement.executeQuery(sqlUser);
+            while(resultSet.next()){
+                usermodel = new userModel();
+                usermodel.setId(resultSet.getInt(1));
+                usermodel.setUsername(resultSet.getString(2));
+                usermodel.setPassword(resultSet.getString(3));
+                usermodel.setFirstName(resultSet.getString(4));
+                usermodel.setLastName(resultSet.getString(5));
+                usermodel.setAlamatUser(resultSet.getString(6));
+                arrayUser.add(usermodel);
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
     
     private boolean authenticationAdmin(String username,String password,ArrayList<adminModel> arraytAdmin){
         boolean login = false;
