@@ -183,6 +183,8 @@ public class formLogin extends javax.swing.JFrame {
         String password = tfPassword.getText();
         if(authenticationAdmin(username,password,arrayAdmin) == true){
             JOptionPane.showMessageDialog(rootPane, "Selamat Anda Berhasil Login Sebagai Admin");
+            this.setVisible(false);
+            new DashboardAdmin(adminmodel).setVisible(true);
         }
         else if (authenticationUser(username,password,arrayUser) == true){
             JOptionPane.showMessageDialog(rootPane, "Selamat Anda Berhasil Login Sebagai User");
@@ -215,6 +217,9 @@ public class formLogin extends javax.swing.JFrame {
                 adminmodel.setId(resultSet.getInt(1));
                 adminmodel.setUsername(resultSet.getString(2));
                 adminmodel.setPassword(resultSet.getString(3));
+                adminmodel.setFirstName(resultSet.getString(4));
+                adminmodel.setLastName(resultSet.getString(5));
+                adminmodel.setAlamatAdmin(resultSet.getString(6));
                 arrayAdmin.add(adminmodel);
             }
             resultSet = statement.executeQuery(sqlUser);
@@ -241,6 +246,15 @@ public class formLogin extends javax.swing.JFrame {
             String passwordAdmin = arraytAdmin.get(i).getPassword();
             if(username.equals(usernameAdmin) && password.equals(passwordAdmin)){
                 login = true;
+                int id = arraytAdmin.get(i).getId();
+                String firstname = arraytAdmin.get(i).getFirstName();
+                String lastname = arraytAdmin.get(i).getLastName();
+                String alamat = arraytAdmin.get(i).getAlamatAdmin();
+                adminmodel = new adminModel();
+                adminmodel.setId(id);
+                adminmodel.setFirstName(firstname);
+                adminmodel.setLastName(lastname);
+                adminmodel.setAlamatAdmin(alamat);
                 break;
             }
         }
