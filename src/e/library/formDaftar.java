@@ -21,11 +21,17 @@ public class formDaftar extends javax.swing.JFrame {
     ResultSet resultSet;
     Statement statement;
     Connection connection;
+    ArrayList<userModel> arrayUser;
     /**
      * Creates new form formDaftar
      */
     public formDaftar() {
         initComponents();
+    }
+    
+    public formDaftar(ArrayList<userModel> arrayUser) {
+        initComponents();
+        this.arrayUser = arrayUser;
     }
     
     /**
@@ -219,22 +225,22 @@ public class formDaftar extends javax.swing.JFrame {
 
     private boolean authenticationUsername(String username){
         boolean valid = true;
-        ArrayList<userModel> arrayUser = new ArrayList<>();
-        String sqlUser = "select * from user";
-        try {
-            connection = (Connection)Koneksi.koneksiDB.configDB();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sqlUser);
-            while(resultSet.next()){
-                userModel usermodel = new userModel();
-                usermodel.setId(resultSet.getInt(1));
-                usermodel.setUsername(resultSet.getString(2));
-                usermodel.setPassword(resultSet.getString(3));
-                usermodel.setFirstName(resultSet.getString(4));
-                usermodel.setLastName(resultSet.getString(5));
-                usermodel.setAlamatUser(resultSet.getString(6));
-                arrayUser.add(usermodel);
-            }
+//        ArrayList<userModel> arrayUser = new ArrayList<>();
+//        String sqlUser = "select * from user";
+//        try {
+//            connection = (Connection)Koneksi.koneksiDB.configDB();
+//            statement = connection.createStatement();
+//            resultSet = statement.executeQuery(sqlUser);
+//            while(resultSet.next()){
+//                userModel usermodel = new userModel();
+//                usermodel.setId(resultSet.getInt(1));
+//                usermodel.setUsername(resultSet.getString(2));
+//                usermodel.setPassword(resultSet.getString(3));
+//                usermodel.setFirstName(resultSet.getString(4));
+//                usermodel.setLastName(resultSet.getString(5));
+//                usermodel.setAlamatUser(resultSet.getString(6));
+//                arrayUser.add(usermodel);
+//            }
                 for (int i = 0; i < arrayUser.size(); i++) {
                 String usernameValidation = arrayUser.get(i).getUsername();
                 if(username.equals(usernameValidation)){
@@ -242,9 +248,9 @@ public class formDaftar extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         
         return valid;
     }
